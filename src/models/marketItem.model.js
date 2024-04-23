@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 const marketItemSchema = new mongoose.Schema({
     name: String,
     type: String,
+    priceRange: String,
     vendors: [String],
     popularVendors: [String],
     similarProducts: [String],
@@ -27,9 +28,10 @@ const MarketItemModel = mongoose.model('MarketItem', marketItemSchema);
 
 // Class for MarketItem
 class MarketItem {
-    constructor(name, type, vendors, popularVendors, similarProducts, complementaryProducts, description, seedsAvailable, seeds) {
+    constructor(name, type, priceRange, vendors, popularVendors, similarProducts, complementaryProducts, description, seedsAvailable, seeds) {
         this.name = name;
         this.type = type;
+        this.priceRange = priceRange;
         this.vendors = vendors;
         this.popularVendors = popularVendors;
         this.similarProducts = similarProducts;
