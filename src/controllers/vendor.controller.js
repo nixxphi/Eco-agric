@@ -96,7 +96,7 @@ export const addItemToVendor = async (req, res) => {
 };
 
 // I added a function to raise vendor's rank by one so we dont have to wait for sales to test it out 
-export const forceRaiseRank = async (req, res) => {
+export const rankUp = async (req, res) => {
     try {
         const { vendorId } = req.params;
 
