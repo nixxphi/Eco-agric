@@ -99,3 +99,5 @@ marketObserver.notifyObservers(newItemAdditionEvent);
 
 // Notify observers of new item restocks
 marketObserver.notifyObservers(newRestockItemEvent);
+
+export default MarketItem; 
