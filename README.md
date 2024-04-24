@@ -1,5 +1,7 @@
-# Eco-agric Project 
-## The Evergreen Initiative
+Sure, here's an updated version of the README.md file with directory structure and method code lines included:
+
+```markdown
+# The Evergreen Initiative
 
 Welcome to The Evergreen Initiative, a web application designed to provide users with valuable information about soil types, climate conditions, and suitable plants for cultivation based on their location. Whether you're an experienced farmer, a gardening enthusiast, or simply love greenery, our app is here to help you make informed decisions and nurture your green spaces.
 
@@ -27,7 +29,7 @@ Follow these steps to set up The Evergreen Initiative locally on your machine:
 
 3. **Install Dependencies**:
    ```bash
-   npm install mongoose express node-fetch nodemon
+   npm install node-fetch mongoose express nodemon
    ```
 
 4. **Set Up Environment Variables**:
@@ -36,14 +38,44 @@ Follow these steps to set up The Evergreen Initiative locally on your machine:
      ```plaintext
      MONGODB_URI=your_mongodb_uri
      API_KEY=your_openweathermap_api_key
-     PORT: your_port
      dbname: your_dbname
+     PORT: your_port
      ```
 
 5. **Start the Server**:
    ```bash
    npm start
    ```
+
+## Directory Structure
+
+```
+evergreen-initiative/
+│
+├── controllers/
+│   ├── climate.controller.js
+│   ├── plant.controller.js
+│   └── user.controller.js
+│
+├── models/
+│   ├── plant.model.js
+│   └── user.model.js
+│
+├── routes/
+│   ├── plant.route.js
+│   └── user.route.js
+│
+├── services/
+│   ├── climate.service.js
+│   ├── location.service.js
+│   ├── plant.service.js
+│   └── user.service.js
+│
+├── app.js
+├── README.md
+├── package.json
+└── .env
+```
 
 ## Usage
 
@@ -63,9 +95,28 @@ Follow these steps to set up The Evergreen Initiative locally on your machine:
    - Change your password in the "Profile" section.
    - Customize your preferences, such as notification settings and preferred units, under the "Preferences" section.
 
+## API Endpoints
+
+### User Routes
+
+- **POST /api/users/register**: Register a new user.
+- **POST /api/users/login**: Log in an existing user.
+- **PUT /api/users/:id**: Update user profile information.
+- **PUT /api/users/:id/change-password**: Change user password.
+- **DELETE /api/users/:id**: Delete user account.
+- **GET /api/users/search?query=searchTerm**: Search for users by username.
+
+### Climate Routes
+
+- **GET /api/climate**: Fetch climate data based on user's location.
+
+### Plant Routes
+
+- **GET /api/plants**: Get a list of plants suitable for user's location.
+
 ## Support
 
-If you encounter any issues or have questions about The Evergreen Initiative, please don't hesitate to contact our support team at support@________.com. We're here to help!
+If you encounter any issues or have questions about The Evergreen Initiative, please don't hesitate to contact our support team at support@_________.com. We're here to help!
 
 ## Credits
 
@@ -73,4 +124,4 @@ If you encounter any issues or have questions about The Evergreen Initiative, pl
 - Soil type data is sourced from [ISRIC - World Soil Information](https://www.isric.org/).
 ```
 
-This README provides a professional and comprehensive overview of "The Evergreen Initiative," including installation instructions for developers and usage guidelines for users. Let me know if you need any further adjustments!
+This README provides a detailed overview of "The Evergreen Initiative," including directory structure, installation instructions, usage guidelines, and API endpoints for developers. Let me know if you need any further adjustments!
