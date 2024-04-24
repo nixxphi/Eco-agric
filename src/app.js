@@ -1,9 +1,10 @@
+// app.js
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import User from './models/user.model.js';
 import UserService from './services/user.service.js';
-import climateRoutes from './routes/climate.routes.js';
+import { fetchClimateData } from './services/climate.service.js';
 import soilTypeRoutes from './routes/soilType.routes.js';
 import plantRoutes from './routes/plant.routes.js';
 
@@ -45,8 +46,19 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Routes for climate, soil types, and plants
-app.use('/climate', climateRoutes);
+// Route for fetching climate data
+app.get('/climate', async (req, res) => {
+  const { latitude, longitude } = req.query;
+  try {
+    const climateData = await fetchClimateData(latitude, longitude);
+    res.json(climateData);
+  } catch (error) {
+    console.error('Error fetching climate data:', error);
+    res.status(500).json({ error: 'Failed to fetch climate data' });
+  }
+});
+
+// Routes for soil types and plants
 app.use('/soil-types', soilTypeRoutes);
 app.use('/plants', plantRoutes);
 
