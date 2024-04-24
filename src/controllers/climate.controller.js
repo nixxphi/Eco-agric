@@ -1,4 +1,3 @@
-
 import { getUserLocation } from '../services/location.service';
 import { fetchClimateData } from '../services/climate.service';
 
@@ -13,6 +12,4 @@ async function getClimateData(req, res) {
   }
 }
 
-export default {
-  getClimateData,
-};
+export { getClimateData };
