@@ -1,3 +1,5 @@
+import plants from './plants.js'
+export const plants;
 
 class Plant {
   constructor(name, description, careInstructions) {
