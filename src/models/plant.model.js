@@ -1,4 +1,4 @@
-import Plants from './plants.js';
+
 class Plant {
   constructor(name, description, careInstructions) {
     this.name = name;
