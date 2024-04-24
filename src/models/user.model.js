@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import plants from './plants.model'; 
-const { MongoClient } = require('mongodb'); 
+import MongoClient from 'mongodb'; 
 import bcrypt from 'bcrypt'; 
 
 class User {
