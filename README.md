@@ -122,6 +122,3 @@ If you encounter any issues or have questions about The Evergreen Initiative, pl
 
 - This project utilizes data from [OpenWeatherMap API](https://openweathermap.org/api) for climate information.
 - Soil type data is sourced from [ISRIC - World Soil Information](https://www.isric.org/).
-```
-
-This README provides a detailed overview of "The Evergreen Initiative," including directory structure, installation instructions, usage guidelines, and API endpoints for developers. Let me know if you need any further adjustments!
