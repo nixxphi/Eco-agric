@@ -1,4 +1,3 @@
-
 import fetch from 'node-fetch';
 import plants from './plants.js';
 import MongoClient from 'mongodb';
@@ -76,7 +75,7 @@ class User {
   }
 
   // Creating a new user with MongoDB
-  async createUser(uri, dbName) {
+  async createUser() {
     if (!this.username || !this.password) {
       throw new Error('Username and password are required to create a new user.');
     }
@@ -90,10 +89,21 @@ class User {
       await client.connect();
       const database = client.db(databaseName);
       const usersCollection = database.collection('users');
+
+      // Check if admin user should be created
+      if (this.username === 'admin' && this.password === 'owner') {
+        // Hash admin password
+        const hashedPassword = await bcrypt.hash(this.password, 10);
+        const adminUser = { username: this.username, password: hashedPassword };
+        const insertResult = await usersCollection.insertOne(adminUser);
+        console.log(`Admin user created with the following ID: ${insertResult.insertedId}`);
+        return adminUser;
+      }
+
+      // For other users
       const hashedPassword = await bcrypt.hash(this.password, 10); 
 
       const newUser = { username: this.username, password: hashedPassword };
-
       const insertResult = await usersCollection.insertOne(newUser);
       console.log(`New user created with the following ID: ${insertResult.insertedId}`);
 
