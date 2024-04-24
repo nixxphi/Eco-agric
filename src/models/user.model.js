@@ -1,6 +1,6 @@
-// user.model.js
+
 import fetch from 'node-fetch';
-import plants from './plants.model';
+import plants from './plants.js';
 import MongoClient from 'mongodb';
 import bcrypt from 'bcrypt';
 
@@ -81,13 +81,16 @@ class User {
       throw new Error('Username and password are required to create a new user.');
     }
 
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    const mongodbUri = process.env.MONGODB_URI;
+    const databaseName = process.env.dbName;
+
+    const client = new MongoClient(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
       await client.connect();
-      const database = client.db(dbName);
+      const database = client.db(databaseName);
       const usersCollection = database.collection('users');
-      const hashedPassword = await bcrypt.hash(this.password, 10); // Use a suitable cost factor
+      const hashedPassword = await bcrypt.hash(this.password, 10); 
 
       const newUser = { username: this.username, password: hashedPassword };
 
