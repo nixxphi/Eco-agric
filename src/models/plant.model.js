@@ -7,15 +7,17 @@ class Plant {
     this.careInstructions = careInstructions;
   }
 
-  static async fetchCropData(cropName) {
+  static async fetchCropData(cropName, collectionName) {
     try {
       // Connect to MongoDB database using the MongoDB URI from environment variables
       const client = new mongodb.MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
       await client.connect();
 
-      // Specify the database name and collection name
+      // Specify the database name
       const database = client.db(process.env.dbname);
-      const collection = database.collection('plants');
+
+      // Get the specified collection or use a default collection name if not provided
+      const collection = database.collection(collectionName || 'plants');
 
       // Find the crop data by name
       const cropData = await collection.findOne({ name: cropName });
