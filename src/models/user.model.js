@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import plants from './plants.js';
+import plant from '.plant.model.js'
 import MongoClient from 'mongodb';
 import bcrypt from 'bcrypt';
 
