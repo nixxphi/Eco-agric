@@ -7,6 +7,8 @@ import UserService from './services/user.service.js';
 import { fetchClimateData } from './services/climate.service.js';
 import soilTypeRoutes from './routes/soilType.routes.js';
 import plantRoutes from './routes/plant.routes.js';
+import searchLocation from './search.app.js';
+
 
 // Load environment variables from .env file
 dotenv.config();
@@ -67,3 +69,16 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
+
+//sample test so we know the search function works
+
+(async () => {
+  try {
+    const latitude = 37.7749;
+    const longitude = -122.4194;
+    const searchResult = await searchLocation(latitude, longitude);
+    console.log(searchResult);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+})();
