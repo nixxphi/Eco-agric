@@ -7,7 +7,7 @@ import { fetchClimateData } from './services/climate.service.js';
 import soilTypeRoutes from './routes/soilType.routes.js';
 import plantRoutes from './routes/plant.routes.js';
 import searchLocation from './search.app.js';
-import { importCropData } from './importData.js'; // IMPORT importCropData FUNCTION
+import { importCropData } from './importData.js';
 
 // LOAD ENVIRONMENT VARIABLES FROM .ENV FILE
 dotenv.config();
