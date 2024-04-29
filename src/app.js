@@ -1,4 +1,3 @@
-
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
@@ -8,32 +7,37 @@ import { fetchClimateData } from './services/climate.service.js';
 import soilTypeRoutes from './routes/soilType.routes.js';
 import plantRoutes from './routes/plant.routes.js';
 import searchLocation from './search.app.js';
+import { importCropData } from './importData.js'; // IMPORT importCropData FUNCTION
 
-
-// Load environment variables from .env file
+// LOAD ENVIRONMENT VARIABLES FROM .ENV FILE
 dotenv.config();
 
-// Create Express app
+// CREATE EXPRESS APP
 const app = express();
 
-// Connect to MongoDB
+// CONNECT TO MONGODB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Failed to connect to MongoDB:', err));
+  .then(() => console.log('CONNECTED TO MONGODB'))
+  .catch(err => console.error('FAILED TO CONNECT TO MONGODB:', err));
 
-// Middleware to parse JSON bodies
+// MIDDLEWARE TO PARSE JSON BODIES
 app.use(express.json());
 
-// Routes for user registration and login
+// ROUTES FOR USER REGISTRATION AND LOGIN
 app.post('/register', async (req, res) => {
   const { username, password, location } = req.body;
   try {
+    // REGISTER THE USER
     const newUser = new User(false, username, password, location);
     const createdUser = await UserService.registerUser(newUser);
+
+    // IMPORT CROP DATA WHEN A USER IS REGISTERED
+    await importCropData();
+
     res.json(createdUser);
   } catch (error) {
-    console.error('Error registering user:', error);
-    res.status(500).json({ error: 'Failed to register user' });
+    console.error('ERROR REGISTERING USER:', error);
+    res.status(500).json({ error: 'FAILED TO REGISTER USER' });
   }
 });
 
@@ -43,35 +47,34 @@ app.post('/login', async (req, res) => {
     const user = await UserService.authenticateUser(username, password);
     res.json(user);
   } catch (error) {
-    console.error('Error authenticating user:', error);
-    res.status(401).json({ error: 'Invalid credentials' });
+    console.error('ERROR AUTHENTICATING USER:', error);
+    res.status(401).json({ error: 'INVALID CREDENTIALS' });
   }
 });
 
-// Route for fetching climate data
+// ROUTE FOR FETCHING CLIMATE DATA
 app.get('/climate', async (req, res) => {
   const { latitude, longitude } = req.query;
   try {
     const climateData = await fetchClimateData(latitude, longitude);
     res.json(climateData);
   } catch (error) {
-    console.error('Error fetching climate data:', error);
-    res.status(500).json({ error: 'Failed to fetch climate data' });
+    console.error('ERROR FETCHING CLIMATE DATA:', error);
+    res.status(500).json({ error: 'FAILED TO FETCH CLIMATE DATA' });
   }
 });
 
-// Routes for soil types and plants
+// ROUTES FOR SOIL TYPES AND PLANTS
 app.use('/soil-types', soilTypeRoutes);
 app.use('/plants', plantRoutes);
 
-// Start the server
+// START THE SERVER
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log(`SERVER LISTENING ON PORT ${PORT}`);
 });
 
-//sample test so we know the search function works
-
+// SAMPLE TEST TO CHECK THE SEARCH FUNCTION
 (async () => {
   try {
     const latitude = 37.7749;
@@ -79,6 +82,6 @@ app.listen(PORT, () => {
     const searchResult = await searchLocation(latitude, longitude);
     console.log(searchResult);
   } catch (error) {
-    console.error('Error:', error);
+    console.error('ERROR:', error);
   }
 })();
